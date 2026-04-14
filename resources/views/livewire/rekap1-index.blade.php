@@ -8,7 +8,7 @@
             <option value="2023">2023</option>
             <option value="2024">2024</option> -->
             <option value="2025">2025</option>
-        	<option value="2026">2026</option>
+            <option value="2026">2026</option>
         </select>
     </div>
     <div class="form-group">
@@ -38,13 +38,13 @@
                     <th>Indikator 6</th>
                     <th>Indikator 7</th>
                     <th>Total Nilai</th>
-                    <!--
+
                     @if (Auth::user()->role == 1)
-<th>Aksi</th>
-@else
-<th>Status</th>
-@endif
-                    -->
+                        <th>Aksi</th>
+                    @else
+                        <th>Status</th>
+                    @endif
+
                 </tr>
             </thead>
             @foreach ($nominasis as $nominasi)
@@ -63,18 +63,17 @@
                         <td>{{ $nominasi->rnilai7 }}</td>
                         <td>{{ $nominasi->rtotal }}</td>
                         <!-- tidak digunakan lagi -->
-                        <!--
+
                         <td>
                             @if ($nominasi->rcalon == 0 && Auth::user()->role == 1)
-<button data-toggle="modal" data-target="#calonModal"
-                                    wire:click="edit({{ $nominasi->pegawai_id }})"
-                                    class="btn btn-success btn-sm">PILIH</button>
-@elseif ($nominasi->rcalon == 0 && Auth::user()->role != 1)
-@else
-<h5><span class="badge badge-success">Sudah Terpilih</span></h5>
-@endif
+                                <button data-toggle="modal" data-target="#calonModal"
+                                    wire:click="edit({{ $nominasi->pegawai_id }})" class="btn btn-success btn-sm">PILIH</button>
+                            @elseif ($nominasi->rcalon == 0 && Auth::user()->role != 1)
+                            @else
+                                <h5><span class="badge badge-success">Sudah Terpilih</span></h5>
+                            @endif
                         </td>
-                        -->
+
                     </tr>
 
                 </tbody>

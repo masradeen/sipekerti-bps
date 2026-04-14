@@ -18,7 +18,7 @@ class PenilaiIndex extends Component
 
     public function render()
     {
-        $penilai1s = Pegawai::where('jabatan_id', '2')->where('status', 1)->get();
+        $penilai1s = Pegawai::where('jabatan_id', '1')->where('status', 1)->get();
         $penilai2s = Pegawai::where('jabatan_id', '2')->where('status', 1)->get();
         $penilai3s = Pegawai::where('jabatan_id', '2')->where('status', 1)->get();
         $penilai4s = Pegawai::where('jabatan_id', '2')->where('status', 1)->get();
@@ -58,8 +58,8 @@ class PenilaiIndex extends Component
         $this->penilai1 = $penilai->penilai1;
         $this->penilai2 = $penilai->penilai2;
         $this->penilai3 = $penilai->penilai3;
-        $this->penilai4 = $penilai->penilai4;
-        $this->penilai5 = $penilai->penilai5;
+        // $this->penilai4 = $penilai->penilai4;
+        // $this->penilai5 = $penilai->penilai5;
         $this->absensi = $penilai->absensi;
         $this->ckp = $penilai->ckp;
         $this->kjk = $penilai->kjk;
@@ -80,8 +80,8 @@ class PenilaiIndex extends Component
                 'penilai1' => $this->penilai1,
                 'penilai2' => $this->penilai2,
                 'penilai3' => $this->penilai3,
-                'penilai4' => $this->penilai4,
-                'penilai5' => $this->penilai5,
+                // 'penilai4' => $this->penilai4,
+                // 'penilai5' => $this->penilai5,
                 'ckp' => $this->ckp,
                 'absensi' => $this->absensi,
                 'kjk' => $this->kjk,
@@ -111,12 +111,12 @@ class PenilaiIndex extends Component
                 'tahun' => $tahun2,
                 'pegawai_id' => $this->pegawai_id,
                 'penilai_id' => $penilai->penilai1,
-                'ckp'   => $ckp2,
-                'absensi'   => $absensi2,
-                'kjk'   => $kjk2,
-                '20ckp'   => ($ckp2 * 0.2),
-                '20absensi'   => ($absensi2 * 0.2),
-                '20kjk'   => ($absensi2 * 0.2),
+                'ckp' => $ckp2,
+                'absensi' => $absensi2,
+                'kjk' => $kjk2,
+                '20ckp' => ($ckp2 * 0.2),
+                '20absensi' => ($absensi2 * 0.2),
+                '20kjk' => ($absensi2 * 0.2),
             ]);
             // //insert penilai 2
             Nilai2::create([
@@ -124,12 +124,12 @@ class PenilaiIndex extends Component
                 'tahun' => $tahun2,
                 'pegawai_id' => $this->pegawai_id,
                 'penilai_id' => $penilai->penilai2,
-                'ckp'   => $ckp2,
-                'absensi'   => $absensi2,
-                'kjk'   => $kjk2,
-                '20ckp'   => $ckp2 * 0.2,
-                '20absensi'   => $absensi2 * 0.2,
-                '20kjk'   => $kjk2 * 0.2,
+                'ckp' => $ckp2,
+                'absensi' => $absensi2,
+                'kjk' => $kjk2,
+                '20ckp' => $ckp2 * 0.2,
+                '20absensi' => $absensi2 * 0.2,
+                '20kjk' => $kjk2 * 0.2,
             ]);
             //insert penilai 3,            
             Nilai2::create([
@@ -137,26 +137,26 @@ class PenilaiIndex extends Component
                 'tahun' => $tahun2,
                 'pegawai_id' => $this->pegawai_id,
                 'penilai_id' => $penilai->penilai3,
-                'ckp'   => $ckp2,
-                'absensi'   => $absensi2,
-                'kjk'   => $kjk2,
-                '20ckp'   => $ckp2 * 0.2,
-                '20absensi'   => $absensi2 * 0.2,
-                '20kjk'   => $kjk2 * 0.2,
+                'ckp' => $ckp2,
+                'absensi' => $absensi2,
+                'kjk' => $kjk2,
+                '20ckp' => $ckp2 * 0.2,
+                '20absensi' => $absensi2 * 0.2,
+                '20kjk' => $kjk2 * 0.2,
             ]);
             //insert penilai 4,            
-            Nilai2::create([
-                'bulan' => $bulan2,
-                'tahun' => $tahun2,
-                'pegawai_id' => $this->pegawai_id,
-                'penilai_id' => $penilai->penilai4,
-                'ckp'   => $ckp2,
-                'absensi'   => $absensi2,
-                'kjk'   => $kjk2,
-                '20ckp'   => $ckp2 * 0.2,
-                '20absensi'   => $absensi2 * 0.2,
-                '20kjk'   => $kjk2 * 0.2,
-            ]);
+            // Nilai2::create([
+            //     'bulan' => $bulan2,
+            //     'tahun' => $tahun2,
+            //     'pegawai_id' => $this->pegawai_id,
+            //     'penilai_id' => $penilai->penilai4,
+            //     'ckp' => $ckp2,
+            //     'absensi' => $absensi2,
+            //     'kjk' => $kjk2,
+            //     '20ckp' => $ckp2 * 0.2,
+            //     '20absensi' => $absensi2 * 0.2,
+            //     '20kjk' => $kjk2 * 0.2,
+            // ]);
             //insert penilai 5,            
             // Nilai2::create([
             //     'bulan' => $bulan2,

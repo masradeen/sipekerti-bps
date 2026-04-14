@@ -4,10 +4,11 @@
         <label for="name">Tahun</label>
         <select class="form-control" id="select2-dropdown" wire:model="tahun">
             <option value="">-- Pilih Tahun --</option>
-            <option value="2022">2022</option>
+            <!-- <option value="2022">2022</option>
             <option value="2023">2023</option>
-            <option value="2024">2024</option>
+            <option value="2024">2024</option> -->
             <option value="2025">2025</option>
+            <option value="2026">2026</option>
         </select>
     </div>
     <div class="form-group">
@@ -55,8 +56,7 @@
                         <td>
                             @if ($nominasi->rcalon == 0 && Auth::user()->role == 1)
                                 <button data-toggle="modal" data-target="#calonModal1"
-                                    wire:click="edit({{ $nominasi->pegawai_id }})"
-                                    class="btn btn-success btn-sm">PILIH</button>
+                                    wire:click="edit({{ $nominasi->pegawai_id }})" class="btn btn-success btn-sm">PILIH</button>
                             @elseif ($nominasi->rcalon == 0 && Auth::user()->role != 1)
                             @else
                                 <h5><span class="badge badge-success">Sudah Terpilih</span></h5>
@@ -68,6 +68,4 @@
                 </tbody>
             @endforeach
         </table>
-    </div>
-
-</div>
+    </div></div>

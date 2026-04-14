@@ -17,10 +17,12 @@ class Rekap1Index extends Component
 
     public $tahun;
     public $bulan;
+    public $satker;
     public $nip_lama;
     public $pegawai_id;
     public $nama_pegawais;
     public $search;
+    public $satker_id;
 
     protected $updatesQueryString = ['search'];
 
@@ -28,10 +30,12 @@ class Rekap1Index extends Component
     {
         $seleksis = Seleksi::get();
         $user_id = Auth::user()->id;
+        $satker_id = Auth::user()->satker_id;
         $nominasis = Nilai1::select("bulan", "pegawai_id", DB::raw("sum(nilai1) as rnilai1,sum(nilai2) as rnilai2,sum(nilai3) as rnilai3,sum(nilai4) as rnilai4,sum(nilai5) as rnilai5,sum(nilai6) as rnilai6,sum(nilai7) as rnilai7,sum(total) as rtotal,count(pegawai_id) as rpegawai,sum(is_calon) as rcalon"))
             ->where('is_final', "=", 1)
             ->where('tahun', $this->tahun)
             ->where('bulan', $this->bulan)
+            ->where('satker_id', $this->satker)
             // ->where('insert_by', $user_id)
             ->groupBy('tahun')
             ->groupBy('bulan')
@@ -78,18 +82,19 @@ class Rekap1Index extends Component
                 'updated_at' => now(),
             ]);
 
+            $satker_id = Auth::user()->satker_id;
             $bulanp = Nilai1::where('pegawai_id', '=', $this->pegawai_id)->value('bulan');
-            $penilai1 = Pegawai::where('jabatan_id', '2')->value('id');
-            $penilai2 = Pegawai::where('jabatan_id', '2')->value('id');
-            $penilai3 = Pegawai::where('jabatan_id', '2')->value('id');
-            $penilai4 = Pegawai::where('jabatan_id', '2')->value('id');
-            $penilai5 = Pegawai::where('jabatan_id', '2')->value('id');
+            $penilai1 = Pegawai::where('jabatan_id', '1')->where('satker_id', $satker_id)->where('id', '!=', $this->pegawai_id)->where('status', 0)->value('id');
+            $penilai2 = Pegawai::where('jabatan_id', '2')->where('satker_id', $satker_id)->where('id', '!=', $this->pegawai_id)->where('status', 0)->value('id');
+            $penilai3 = Pegawai::where('jabatan_id', '2')->where('satker_id', $satker_id)->where('id', '!=', $this->pegawai_id)->where('status', 0)->value('id');
+            $penilai4 = Pegawai::where('jabatan_id', '2')->where('satker_id', $satker_id)->where('id', '!=', $this->pegawai_id)->where('status', 0)->value('id');
+            $penilai5 = Pegawai::where('jabatan_id', '2')->where('satker_id', $satker_id)->where('id', '!=', $this->pegawai_id)->where('status', 0)->value('id');
 
             Penilai::updateOrCreate(
                 [
                     'tahun' => $this->tahun,
                     'bulan' => $this->bulan,
-                    // 'bulan' => $bulanp
+                    'satker_id' => $satker_id,
                     'pegawai_id' => $this->pegawai_id
                 ],
                 [

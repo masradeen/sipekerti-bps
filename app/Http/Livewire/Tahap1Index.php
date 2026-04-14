@@ -59,6 +59,7 @@ class Tahap1Index extends Component
         $this->bulan = $nominasis->bulan;
         $this->pegawai_id = $nominasis->id;
         $this->nama_pegawai = $nominasis->pegawai->nama;
+        $this->satker_id = $nominasis->pegawai->satker_id;
     }
 
     private function resetInputFields()
@@ -80,6 +81,7 @@ class Tahap1Index extends Component
 
     public function update()
     {
+        $satker_id = Auth::user()->satker_id;
         $validatedDate = $this->validate([
             'nilai1' => 'required',
             'nilai2' => 'required',

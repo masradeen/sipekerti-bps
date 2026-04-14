@@ -9,10 +9,10 @@ class Nilai1 extends Model
 {
     use HasFactory;
 
-	protected $primaryKey = 'id';
+    protected $primaryKey = 'id';
     public $incrementing = true;
 
-    protected   $fillable = ['tahun','bulan','pegawai_id','nilai1','nilai2','nilai3','nilai4','nilai5','nilai6','nilai7','total','is_final','is_calon','insert_by'];
+    protected $fillable = ['tahun', 'bulan', 'pegawai_id', 'nilai1', 'nilai2', 'nilai3', 'nilai4', 'nilai5', 'nilai6', 'nilai7', 'total', 'is_final', 'is_calon', 'satker_id', 'insert_by'];
 
     public function pegawai()
     {

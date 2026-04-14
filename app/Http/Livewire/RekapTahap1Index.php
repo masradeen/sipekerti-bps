@@ -7,6 +7,7 @@ use App\Models\Nilai1;
 use App\Models\Seleksi;
 use App\Models\Penilai;
 use DB;
+use Auth;
 
 use Livewire\Component;
 
@@ -15,20 +16,38 @@ class RekapTahap1Index extends Component
 
     public $tahun;
     public $bulan;
+    public $satker;
     public $nip_lama;
     public $pegawai_id;
     public $nama_pegawais;
     public $search;
+    public $satker_id;
 
     protected $updatesQueryString = ['search'];
 
     public function render()
     {
-        \DB::statement("SET SQL_MODE=''");
-        $nominasis = DB::table('vw_total')->where('tahun', $this->tahun)
-            ->where('bulan', $this->bulan)->get();
+        // \DB::statement("SET SQL_MODE=''");
+        // $nominasis = DB::table('vw_total')->where('tahun', $this->tahun)
+        //     ->where('bulan', $this->bulan)->get();
 
-        return view('livewire.rekap-tahap1-index', compact('nominasis'));
+        // return view('livewire.rekap-tahap1-index', compact('nominasis'));
+        $seleksis = Seleksi::get();
+        $user_id = Auth::user()->id;
+        $satker_id = Auth::user()->satker_id;
+        $nominasis = Nilai1::select("bulan", "pegawai_id", DB::raw("sum(nilai1) as rnilai1,sum(nilai2) as rnilai2,sum(nilai3) as rnilai3,sum(nilai4) as rnilai4,sum(nilai5) as rnilai5,sum(nilai6) as rnilai6,sum(nilai7) as rnilai7,sum(total) as rtotal,count(pegawai_id) as rpegawai,sum(is_calon) as rcalon"))
+            ->where('is_final', "=", 1)
+            ->where('tahun', $this->tahun)
+            ->where('bulan', $this->bulan)
+            ->where('satker_id', $this->satker)
+            // ->where('insert_by', $user_id)
+            ->groupBy('tahun')
+            ->groupBy('bulan')
+            ->groupBy('pegawai_id')
+            ->orderBy('rtotal', 'desc')
+            ->get();
+        // $nominasis = Nilai1::where('is_final',1)->orderBy('total','desc')->get();
+        return view('livewire.rekap1-index', compact('nominasis', 'seleksis'));
     }
 
     public function edit($pegawai_id)
