@@ -42,45 +42,45 @@
                 </tr>
             </thead>
             @foreach ($fins as $final)
-                <tbody>
+            <tbody>
 
 
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <!-- <td>{{ $final->bulan }}</td> -->
-                        <td>{{ $final->nama_pegawai }}</td>
-                        <td>{{ $final->nama_penilai }}</td>
-                        <td>{{ number_format((($final->nilai2 + $final->nilai4 + $final->nilai1 + $final->nilai5 + $final->nilai19 + $final->nilai3 + $final->nilai19) / 35) * 100), 2 }}
-                        </td>
-                        <td>{{ number_format((($final->nilai26 + $final->nilai28 + $final->nilai27 + $final->nilai29 + $final->nilai30) / 25) * 100), 2 }}
-                        </td>
-                        <td>{{ number_format((($final->nilai6 + $final->nilai7 + $final->nilai18 + $final->nilai19 + $final->nilai8 + $final->nilai9 + $final->nilai10 + $final->nilai18) / 40) * 100), 2 }}
-                        </td>
-                        <td>{{ number_format((($final->nilai1 + $final->nilai11 + $final->nilai12 + $final->nilai16 + $final->nilai18 + $final->nilai15 + $final->nilai21 + $final->nilai22 + $final->nilai23 + $final->nilai25 + $final->nilai35) / 55) * 100), 2 }}
-                        </td>
-                        <td>{{ number_format((($final->nilai26 + $final->nilai27 + $final->nilai30 + $final->nilai31 + $final->nilai32 + $final->nilai34 + $final->nilai18 + $final->nilai29) / 40) * 100), 2 }}
-                        </td>
-                        <td>{{ number_format((($final->nilai19 + $final->nilai22 + $final->nilai23 + $final->nilai34 + $final->nilai24 + $final->nilai25 + $final->nilai4 + $final->nilai21 + $final->nilai33 + $final->nilai35) / 50) * 100), 2 }}
-                        </td>
-                        <td>{{ number_format((($final->nilai1 + $final->nilai4 + $final->nilai11 + $final->nilai12 + $final->nilai16 + $final->nilai13 + $final->nilai15 + $final->nilai12 + $final->nilai14) / 45) * 100), 2 }}
-                        </td>
-                        <td>{{ number_format(($final->total / 290) * 100), 2 }}</td>
-                        <td>
-                            @if ($final->is_final != 1)
-                                <button data-toggle="modal" data-target="#updateModal"
-                                    wire:click="edit({{ $final->id }})" class="btn btn-warning ">Beri Nilai</button>
-                                <button data-toggle="modal" data-target="#finalModal"
-                                    wire:click="edit({{ $final->id }})" class="btn btn-success">Finalisasi</button>
-                            @else
-                                <h5><span class="badge badge-success">Sudah difinalkan</span></h5>
-                            @endif
-                            <!-- <button type="button" class="btn btn-danger">Hapus</button> -->
-                        </td>
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <!-- <td>{{ $final->bulan }}</td> -->
+                    <td>{{ $final->nama_pegawai }}</td>
+                    <td>{{ $final->nama_penilai }}</td>
+                    <td>{{ number_format((($final->nilai2 + $final->nilai4 + $final->nilai1 + $final->nilai5 + $final->nilai19 + $final->nilai3 + $final->nilai19) / 35) * 100), 2 }}
+                    </td>
+                    <td>{{ number_format((($final->nilai26 + $final->nilai28 + $final->nilai27 + $final->nilai29 + $final->nilai30) / 25) * 100), 2 }}
+                    </td>
+                    <td>{{ number_format((($final->nilai6 + $final->nilai7 + $final->nilai18 + $final->nilai19 + $final->nilai8 + $final->nilai9 + $final->nilai10 + $final->nilai18) / 40) * 100), 2 }}
+                    </td>
+                    <td>{{ number_format((($final->nilai1 + $final->nilai11 + $final->nilai12 + $final->nilai16 + $final->nilai18 + $final->nilai15 + $final->nilai21 + $final->nilai22 + $final->nilai23 + $final->nilai25 + $final->nilai35) / 55) * 100), 2 }}
+                    </td>
+                    <td>{{ number_format((($final->nilai26 + $final->nilai27 + $final->nilai30 + $final->nilai31 + $final->nilai32 + $final->nilai34 + $final->nilai18 + $final->nilai29) / 40) * 100), 2 }}
+                    </td>
+                    <td>{{ number_format((($final->nilai19 + $final->nilai22 + $final->nilai23 + $final->nilai34 + $final->nilai24 + $final->nilai25 + $final->nilai4 + $final->nilai21 + $final->nilai33 + $final->nilai35) / 50) * 100), 2 }}
+                    </td>
+                    <td>{{ number_format((($final->nilai1 + $final->nilai4 + $final->nilai11 + $final->nilai12 + $final->nilai16 + $final->nilai13 + $final->nilai15 + $final->nilai12 + $final->nilai14) / 45) * 100), 2 }}
+                    </td>
+                    <td>{{ number_format(($final->total / 290) * 100), 2 }}</td>
+                    <td>
+                        @if ($final->is_final != 1)
+                        <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $final->id }})"
+                            class="btn btn-warning ">Beri Nilai</button>
+                        <button data-toggle="modal" data-target="#finalModal" wire:click="edit({{ $final->id }})"
+                            class="btn btn-success">Finalisasi</button>
+                        @else
+                        <h5><span class="badge badge-success">Sudah difinalkan</span></h5>
+                        @endif
+                        <!-- <button type="button" class="btn btn-danger">Hapus</button> -->
+                    </td>
 
 
-                    </tr>
+                </tr>
 
-                </tbody>
+            </tbody>
             @endforeach
         </table>
     </div>

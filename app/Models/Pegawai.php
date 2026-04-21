@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pegawai extends Model
 {
     use HasFactory;
-    protected $fillable = ['nip_lama', 'nama', 'satker_id', 'jabatan_id', 'status', 'update_at'];
+    protected $table = 'pegawais';
+    protected $fillable = ['nip_lama', 'nip', 'satker_id', 'nama', 'jabatan_id', 'status', 'update_at'];
 
 
     public function nilai1()

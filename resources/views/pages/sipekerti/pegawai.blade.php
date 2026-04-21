@@ -3,15 +3,11 @@
 @section('page', 'Pegawai')
 @section('breadcrumb', 'Pegawai')
 
-@if (Auth::user()->role < 1)
-    Admin said, "This is not for You"
-@else
-    @section('content')
-        <section class="content">
+@if (Auth::user()->role < 1) Admin said, "This is not for You" @else @section('content') <section class="content">
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Daftar Pegawais</h3>
+                    <h3 class="card-title">Daftar Pegawai</h3>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
