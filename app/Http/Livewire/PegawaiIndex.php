@@ -43,6 +43,7 @@ class PegawaiIndex extends Component
         $this->pegawai_id = $id;
         $this->nama = $pegawai->nama;
         $this->nip_lama = $pegawai->nip_lama;
+        $this->nip = $pegawai->nip;
         $this->jabatan = $pegawai->jabatan_id;
         $this->status = $pegawai->status;
     }

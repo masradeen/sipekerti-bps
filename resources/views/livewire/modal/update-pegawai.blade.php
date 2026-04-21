@@ -1,7 +1,7 @@
 <!-- Modal -->
 
-<div wire:ignore.self class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,6 +28,12 @@
                         @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput2">NIP Baru :</label>
+                        <input type="text" class="form-control" wire:model="nip" id="exampleFormControlInput2">
+                        <!-- @error('email') <span class="text-danger">{{ $message }}</span>@enderror -->
                     </div>
 
                     <div class="form-group">
