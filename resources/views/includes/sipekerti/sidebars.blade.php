@@ -99,7 +99,7 @@
 
             @if (Auth::user()->role == 1)
                 <li class="nav-item">
-                    <a href="{{ route('rekap2_2024') }}" class="nav-link">
+                    <a href="{{ route('rekap2') }}" class="nav-link">
                         <i class="nav-icon fa fa-qrcode"></i>
                         <p>Rekap Nilai Tahap 2 </p>
                     </a>
