@@ -5,25 +5,15 @@ namespace App\Http\Livewire;
 use App\Models\Pegawai;
 use App\Models\PresensiEvents;
 use Carbon\Carbon;
-
 use Livewire\Component;
 
 class PresensiEvent extends Component
 {
-    public $employess;
+    // Hapus $employess dari properti public
     public $ratings = [];
     public $comments = [];
     public $assessment_date;
     public $assessment_title;
-
-    public function mount()
-    {
-        $this->employess = Pegawai::where('status', 1)->orderBy('nama')->get();
-
-        foreach ($this->employess as $employee) {
-            $this->ratings[$employee->nip_lama] = 1;
-        }
-    }
 
     protected $rules = [
         'ratings.*' => 'required',
@@ -32,36 +22,48 @@ class PresensiEvent extends Component
         'assessment_title' => 'required|string|max:255',
     ];
 
+    public function mount()
+    {
+        $this->assessment_date = date('Y-m-d');
+        $pegawais = Pegawai::where('status', 1)->get();
+
+        foreach ($pegawais as $employee) {
+            // Gunakan prefix id_ untuk kunci array yang aman
+            $safeKey = 'id_' . str_replace(['.', ' '], '_', $employee->nip_lama);
+            $this->ratings[$safeKey] = 1;
+            $this->comments[$safeKey] = null;
+        }
+    }
+
     public function submit()
     {
         $this->validate();
 
-        foreach ($this->ratings as $employee_id => $rating) {
+        foreach ($this->ratings as $key => $rating) {
+            // Kembalikan ke NIP asli
+            $originalNip = str_replace('id_', '', $key);
+
             PresensiEvents::create([
-                'pegawai_id' => $employee_id,
+                'pegawai_id' => $originalNip,
                 'nilai' => $rating,
-                'comment' => $this->comments[$employee_id] ?? null,
+                'comment' => $this->comments[$key] ?? null,
                 'tanggal' => Carbon::parse($this->assessment_date),
                 'event' => $this->assessment_title,
             ]);
         }
 
-        session()->flash('message', 'Performance assessment submitted successfully.');
+        session()->flash('message', 'Presensi event berhasil disimpan.');
 
-        // Reset form fields
+        // Reset fields
         $this->reset(['ratings', 'comments', 'assessment_date', 'assessment_title']);
-
-        // Reinitialize default rating
-        foreach ($this->employess as $employee) {
-            $this->ratings[$employee->nip_lama] = 1;
-        }
+        $this->mount(); // Re-inisialisasi default rating
     }
 
     public function render()
     {
-        // $employess = Pegawai::where('status', 1)->orderBy('nama', 'asc')->get();
-        // return view('livewire.presensi-event', compact('employess'));
-
-        return view('livewire.presensi-event');
+        // Ambil data pegawai di sini agar tidak membebani payload
+        return view('livewire.presensi-event', [
+            'employees_list' => Pegawai::where('status', 1)->orderBy('nama')->get()
+        ]);
     }
 }

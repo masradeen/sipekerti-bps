@@ -87,15 +87,15 @@
                 </li>
             @else
             @endif
-            @if (Auth::user()->role == 1)
-                <li class="nav-item">
-                    <a href="{{ route('rekap2') }}" class="nav-link">
-                        <i class="nav-icon fa fa-qrcode"></i>
-                        <p>Rekap Nilai Tahap 2 2023</p>
-                    </a>
-                </li>
-            @else
-            @endif
+            <!-- @if (Auth::user()->role == 1)
+                    <li class="nav-item">
+                        <a href="{{ route('rekap2') }}" class="nav-link">
+                            <i class="nav-icon fa fa-qrcode"></i>
+                            <p>Rekap Nilai Tahap 2 2023</p>
+                        </a>
+                    </li>
+                    @else
+                    @endif -->
 
             @if (Auth::user()->role == 1)
                 <li class="nav-item">
@@ -154,8 +154,7 @@
                     <p> Reset Password </p>
                 </a>
 
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                     <i class="nav-icon far fa-check-square"></i>
                     {{ __('Logout') }}
