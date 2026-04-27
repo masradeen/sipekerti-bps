@@ -1,89 +1,89 @@
 <div class="container mt-4">
-    <!-- Flash Message -->
     @if (session()->has('message'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade show">
             {{ session('message') }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
     @endif
 
-    <div class="card">
-
+    <div class="card shadow-sm">
         <div class="card-body">
             <form wire:submit.prevent="submit">
-                <div class="row">
-                    <!-- Tahun -->
-                    <div class="col-md-6 mb-3">
-                        <label for="tahun" class="font-weight-bold">Tahun</label>
-                        <select class="form-control" id="tahun" wire:model="tahun">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Tahun</label>
+                        <select class="form-control" wire:model="tahun">
                             <option value="">-- Pilih Tahun --</option>
-                            <option value="2024">2024</option>
                             <option value="2025">2025</option>
-                        	<option value="2026">2026</option>
+                            <option value="2026">2026</option>
                         </select>
-                        @error('tahun')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
                     </div>
-
-                    <!-- Bulan -->
-                    <div class="col-md-6 mb-3">
-                        <label for="bulan" class="font-weight-bold">Bulan</label>
-                        <select class="form-control" id="bulan" wire:model="bulan">
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Bulan</label>
+                        <select class="form-control" wire:model="bulan">
                             <option value="">-- Pilih Bulan --</option>
-                            @foreach ([1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'] as $key => $month)
-                                <option value="{{ $key }}">{{ $month }}</option>
+                            @foreach([
+                                    1 => 'Jan',
+                                    2 => 'Feb',
+                                    3 => 'Mar',
+                                    4 => 'Apr',
+                                    5 => 'Mei',
+                                    6 => 'Jun',
+                                    7 => 'Jul',
+                                    8 => 'Agu',
+                                    9 => 'Sep',
+                                    10 => 'Okt',
+                                    11 => 'Nov',
+                                    12 => 'Des'
+                                ] as $num => $name)
+                                <option value="{{ $num }}">{{ $name }}</option>
                             @endforeach
                         </select>
-                        @error('bulan')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
                     </div>
                 </div>
 
-                <!-- Table -->
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover text-center">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>NIP</th>
-                                <th>Nama Pegawai</th>
-                                <th>Capaian Kinerja</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($employess as $employee)
+                @if($tahun && $bulan)
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-dark text-center">
                                 <tr>
-                                    <td class="align-middle">{{ $employee->nip_lama }}</td>
-                                    <td class="align-left">{{ $employee->nama }}</td>
-                                    <td>
-                                        <input type="number" class="form-control text-center"
-                                            wire:model="nilais.{{ $employee->nip_lama }}">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            wire:model="comments.{{ $employee->nip_lama }}">
-                                    </td>
+                                    <th>Nama Pegawai</th>
+                                    <th width="150">Nilai</th>
+                                    <th>Keterangan</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($employees_list as $employee)
+                                    @php
+                                        // Samakan kunci dengan yang ada di Class (Prefix id_)
+                                        $safeKey = 'id_' . str_replace(['.', ' '], '_', $employee->nip_lama);
+                                    @endphp
+                                    <tr wire:key="row-{{ $employee->nip_lama }}">
+                                        <td>
+                                            {{ $employee->nama }}<br>
+                                            <small class="text-muted">{{ $employee->nip_lama }}</small>
+                                        </td>
+                                        <td>
+                                            <input type="number" wire:model.defer="nilais.{{ $safeKey }}"
+                                                class="form-control text-center" step="0.01">
+                                        </td>
+                                        <td>
+                                            <input type="text" wire:model.defer="comments.{{ $safeKey }}" class="form-control"
+                                                placeholder="...">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
-                <!-- Error Message -->
-                @error('nilais.*')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-                @error('comments.*')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-
-                <!-- Submit Button -->
-                <div class="text-right mt-3">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-check"></i> Submit
-                    </button>
-                </div>
+                    <div class="text-right mt-3">
+                        <button type="submit" class="btn btn-success btn-lg shadow" wire:loading.attr="disabled">
+                            <span wire:loading.remove><i class="fas fa-save"></i> Simpan Data</span>
+                            <span wire:loading><i class="fas fa-spinner fa-spin"></i> Sedang Menyimpan...</span>
+                        </button>
+                    </div>
+                @endif
             </form>
         </div>
     </div>

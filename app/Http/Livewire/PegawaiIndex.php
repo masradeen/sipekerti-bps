@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class PegawaiIndex extends Component
 {
-    public $nama, $nip_lama, $jabatan, $status;
+    public $nama, $nip, $nip_lama, $jabatan, $status;
     public $updateMode = false;
 
     protected $listeners = [
@@ -61,6 +61,7 @@ class PegawaiIndex extends Component
             $pegawai->update([
                 'nama' => $this->nama,
                 'nip_lama' => $this->nip_lama,
+                'nip' => $this->nip,
                 'jabatan_id' => $this->jabatan,
                 'status' => $this->status,
                 'updated_at' => now(),
