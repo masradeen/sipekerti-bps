@@ -78,7 +78,7 @@ class Rekap2Index extends Component
             ->where('nilai2s.bulan', $this->bulan)
             ->where('nilai2s.is_final', "!=", 0)
             ->take(3)
-        // ->get();
+            ->get();
 
         $namaf = Nilai2::select("nilai2s.tahun", "nilai2s.bulan", "nilai2s.pegawai_id as pegawai_id", "r.nama as nama", DB::raw("avg(40total) as rtotal"), DB::raw("avg(20ckp) as rckp"), DB::raw("avg(20absensi) as rabsensi"), DB::raw("avg(20kjk) as rkjk"), DB::raw("avg(40total)+avg(20ckp)+avg(20absensi)+avg(20kjk) as rfinal"))
             ->join('pegawais as r', 'nilai2s.pegawai_id', '=', 'r.id')
